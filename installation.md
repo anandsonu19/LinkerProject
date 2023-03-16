@@ -1,60 +1,28 @@
-const mongoose = require('mongoose');
-const passportLocalMongoose = require("passport-local-mongoose");
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require("mongoose-findorcreate");
-const passport = require("passport");
+# Installation Docs
 
-//User Schema for MongoDB (Mongoose)
-const userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String,
-    googleId: String,
-    notes: [{
-        id: String,
-        title: String,
-        body: String,
-    }],
-});
+## Some prerequisites for running it in your local machine
+- npm ([Installation guide here](https://radixweb.com/blog/installing-npm-and-nodejs-on-windows-and-mac))
+- mongodb installed ([Installation guide here](https://www.geeksforgeeks.org/how-to-install-mongodb-on-windows/))
+- node version 16+ recommended. (Check your version using the ```node --version``` command) ([Installation guide here](https://radixweb.com/blog/installing-npm-and-nodejs-on-windows-and-mac))
+- Your are good to go to the next step.
 
-//Plugging in Mongoose Plugin for Passport
-userSchema.plugin(passportLocalMongoose);
+## Installing the project
 
-//Plugging in findOrCreate helper module for Mongoose to create or find user object
-userSchema.plugin(findOrCreate);
+- fork this repository to your account
+- git clone the project to your local computer. The command would look something like ```git clone https://github.com/{Your GitHub Username}/Linker```
+- Change the terminal to the ```Linker``` project folder using the ```cd Linker``` command on Linux and ```cd "Linker"``` command on Windows.
+- run ```npm install``
+- Create a new .env file inside the project's root directory with the following data
 
-//Compiling User Schema into User Model
-const User = new mongoose.model("User", userSchema);
+```
+SECRET=alittleandcutesecret
+CLIENT_ID=fakeid
+CLIENT_SECRET=fakesecret
+DATABASE_URL=mongodb://127.0.0.1:27017/linkDB
+```
+- Do not change any of the above value inside the .env file.
+- Open a new terminal window and type ```mongod``` to shart the mongoDB server.
+- In the previous terminal, type the command ```node index.js``` to start the server.
+- Go to your browser window, and check the running application. The URL would be ```127.0.0.1:3000```
 
-//Plugging in Passport User Creation Strategy
-passport.use(User.createStrategy());
-
-//Persisting user data into session and cookies (After successful authentication)
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
-});
-
-//Retrieving user data from saved session and cookies
-passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
-        done(err, user);
-    });
-});
-
-//Plugging in Gooogle OAuth2.0 Authentication Strategy and adding Client ID, Cliet Secret and Callback URL.
-passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/keepclone",
-    userProfileURL: 'https://www.googleapis.com/oauth2/v3/userinfo',
-    passReqToCallback: true
-},
-    function (request, accessToken, refreshToken, profile, done) {
-        //Creating User object if not found already inside the database
-        User.findOrCreate({ googleId: profile.id }, function (err, user) {
-            return done(err, user);
-        });
-    }
-));
-
-module.exports = User;
+If you have any query, feel free to ask in on the [discussions forum here](https://github.com/anshgoyalevil/Linker/discussions) or [join the Discord Community here](https://discord.gg/6f28dqWy).
