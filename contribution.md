@@ -1,73 +1,22 @@
-const Course = require("../models/courseModel");
-const uniqid = require('uniqid');
+# Contributing code to Linker
 
-exports.getCourses = async function (req, res) {
-    //Check if user is authenticated
-    if (req.isAuthenticated()) {
-        const courses = await Course.find({});
-        const username = req.user.name;
-        //Creat unique session id to prevent username morphing in URL
-        var sessionId = 0;
-        for(var i = 0; i<username.length; i++){
-            sessionId = sessionId+(username.charCodeAt(i)*i);
-        }
-        //Render "courses" page if user is logged-in
-        res.render("courses", {
-            courses: courses,
-            username: username,
-            sessionId: sessionId
-        });
-    }
-    else {
-        //Redirect to "/login" page if user is not logged-in
-        res.redirect("/login");
-    }
-}
+These instructions are for developers who'd like to contribute code to improve the Linker platform. If you'd prefer to help out with other things, please see our general contribution guidelines.
 
-exports.getCustomCourse = function (req, res) {
-    //Check if user is authenticated
-    if (req.isAuthenticated()) {
-        //Render "coursePage" page if user is logged-in
-        res.render("coursePage");
-    }
-    else{
-        //Redirect to "/login" page if user is not logged-in
-        res.redirect("/login");
-    }
-}
+Thanks for your interest in improving the Linker platform! This page explains how you can get involved.
 
-exports.getAddVideoPage = function (req, res) {
-    //Check if user is authenticated
-    if (req.isAuthenticated()) {
-        //Render "coursePage" page if user is logged-in
-        res.render("addCourse");
-    }
-    else{
-        //Redirect to "/login" page if user is not logged-in
-        res.redirect("/login");
-    }
-}
+If you run into any problems along the way, we're here to help! Check out our wiki page on getting help for the communication channels you can use. If you find any bugs, you can also file an issue on our [issue tracker]().
 
-exports.postAddVideo = function (req, res) {
-    //Check if user is authenticated
-    if (req.isAuthenticated()) {
-        const submittedVideoName = req.body.videoName;
-        const submittedVideoUrl = req.body.videoUrl;
-        const submittedImageUrl = req.body.imageUrl;
-        const submittedVideoDsc = req.body.videoDsc;
-        //Create JSON object for a single course object
-        const newObj = new Course({
-            cid: uniqid(), //Unique ID will be generated using the Uniqid NPM Module
-            name: submittedVideoName,
-            image: submittedImageUrl,
-            desc: submittedVideoDsc,
-            videoUrl: submittedVideoUrl,
-        });
-        //Save newly created object to database
-        newObj.save();
-        res.redirect("/courses");
-    }
-    else {
-        res.redirect("/login");
-    }
-}
+Important! Please read this page in its entirety before making any code changes. It contains lots of really important information. You should also read through our guide to making pull requests.
+
+- Install Linker Project following the installation instructions. If you run into any issues, please check out the troubleshooting instructions. If you want help setting up a code editor, also check out our guide to common IDEs. If the above resources don't help and you're still stuck, please check GitHub Discussions to see if any existing threads address the issue. If not, feel free to start a new thread explaining what you've tried and what you're seeing, so that we can try and help you!
+- [Check the installation docs here]()
+
+## Finding something to do
+[Good first issues for new contributors]()
+Welcome! Please make sure to follow the instructions above if you haven't already.
+
+After that, you can choose a good first issue from the list of [good first issues](). These issues are hand-picked to ensure that you don't run into unexpected roadblocks while working on them, and each of them should have clear instructions for new contributors. If you see one that doesn't, please let us know via GitHub Discussions and we'll fix it. For other issues, you might need to be more independent because we might not know how to solve them either.
+
+You can also browse good first issues for each of the core Linker Web app to find something you'd enjoy working on:
+
+Important Note: Please follow the PR instructions carefully! Otherwise your PR review may be delayed or your PR may be closed.
