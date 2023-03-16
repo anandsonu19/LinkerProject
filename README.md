@@ -1,85 +1,55 @@
-const User = require("../models/userModel");
-const passport = require("passport");
+# Linker
 
-exports.getLoginPage = function (req, res) {
-    //Check if user is authenticated
-    if (req.isAuthenticated()) {
-        //Redirect to "/courses" page if user is logged-in
-        res.redirect("/courses");
-    }
-    else {
-        //Render "login" page if user is not logged-in.
-        res.render("login");
-    }
-}
+Beautiful UI & UX Link Shortner Web App with Link Analytics and User account/authentication system.
 
-exports.getRegisterPage = function (req, res) {
-    //Check if user is authenticated
-    if (req.isAuthenticated()) {
-        //Redirect to "/courses" page if user is logged-in
-        res.redirect("/courses");
-    }
-    else {
-        //Render "register" page if user is not logged-in.
-        res.render("register");
-    }
-}
+There are a lot of link shorteners already on the internet like bitly, but what makes it different is that it can be self hosted. You own the server, database, and basically the whole control of the application. *You no longer have to use the bit.ly/random stuff now, you can create your own server, with the domain name of your choice.
 
-exports.getLogout = function (req, res) {
-    req.logout(function (err) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.redirect("/");
-        }
-    });
-}
+Highlights:
+- The webapp is completely responsive/cross-platform.
+- It contains analytics for the link clicks.
+- Users can create account, or sign-in via Google.
+- It supports custom alias and 62 bit hashing.
+- 62 bit hashing is implemented with O(1) CRUD operation for faster performance.
 
-exports.postRegister = function (req, res) {
-    const name = req.body.name;
-    //Register a user into database
-    User.register({ username: req.body.username }, req.body.password, function (err, user) {
-        if (err) {
-            console.log(err);
-            res.redirect("/register");
-        }
-        else {
-            //Saving session cookies after successful registration
-            passport.authenticate("local")(req, res, function () {
-                //Find and update name of the user into database (Naming is required for Chat Rooms).
-                User.findOneAndUpdate({ _id: req.user.id }, { $set: { name: name } }, function (err) {
-                    if (!err) {
-                        //Redirect to "/courses" page after successful registration
-                        res.redirect("/courses");
-                    }
-                });
-            });
-        }
-    });
-}
+## Installation
 
-exports.postLogin = async function (req, res) {
-    //Create user object from the login form data
-    const user = new User({
-        username: req.body.username,
-        password: req.body.password,
-    });
-    const userExist = await User.find({ username: req.body.username });
-    if (userExist.length <= 0) {
-        res.redirect("/register");
-    }
-    else {
-        req.login(user, function (err) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                //If user is found in database, save the login session and redirect to "/courses" page
-                passport.authenticate("local")(req, res, function () {
-                    res.redirect("/courses");
-                });
-            }
-        });
-    }
-}
+Please refer to the [installation docs here](https://github.com/anshgoyalevil/Linker/blob/master/installation.md).
+
+## How to start contributing to this project?
+
+The Linker project is built by the community for the community. We welcome contributions from everyone, especially new contributors.
+
+You can help with Linker's development in many ways, including art, coding, design and documentation.
+
+Developers: please [see this wiki page](https://github.com/anshgoyalevil/Linker/blob/master/installation.md) for instructions on how to set things up and commit changes.
+All other contributors: please see our [general contributor guidelines](https://github.com/anshgoyalevil/Linker/blob/master/contribution.md).
+
+## Check out some [screenshots of the application here](https://github.com/anshgoyalevil/Linker/blob/master/preview.md)
+
+## Frontend Technologies Used:-
+- HTML
+- CSS
+- JavaScript
+- Flowbite
+- Tailwind
+- Font Awesome
+- EJS
+
+## Backend Technologies Used:-
+- Node.JS
+- Express.JS
+
+## Database Technology Used:-
+- MongoDB
+
+Following Node Modules are used:
+- dotenv - for securing api keys
+- express - for server side logic
+- body-parser - for parsing the body data
+- mongoose - for using mongodb effeciently
+- express-session - for cookie sessions
+- passport - for authentication
+- passport-local-mongoose - passport plugin for mongoose
+- passport-google-oauth20 - passport auth strategy for google authentication
+- mongoose-findorcreate - a utility mongoose function
+- http - to handle http requests and server
