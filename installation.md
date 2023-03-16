@@ -25,4 +25,4 @@ DATABASE_URL=mongodb://127.0.0.1:27017/linkDB
 - In the previous terminal, type the command ```node index.js``` to start the server.
 - Go to your browser window, and check the running application. The URL would be ```127.0.0.1:3000```
 
-If you have any query, feel free to ask in on the [discussions forum here](https://github.com/anshgoyalevil/Linker/discussions) or [join the Discord Community here](https://discord.gg/6f28dqWy).
+If you have any query, feel free to ask in on the [discussions forum here](https://github.com/anandsonu19/LinkerProject/discussions) or [join the Discord Community here](https://discord.gg/6f28dqWy).
