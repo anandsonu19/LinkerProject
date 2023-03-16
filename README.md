@@ -13,7 +13,7 @@ Highlights:
 
 ## Installation
 
-Please refer to the [installation docs here](https://github.com/anshgoyalevil/Linker/blob/master/installation.md).
+Please refer to the [installation docs here]().
 
 ## How to start contributing to this project?
 
