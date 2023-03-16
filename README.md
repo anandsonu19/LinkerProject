@@ -13,7 +13,7 @@ Highlights:
 
 ## Installation
 
-Please refer to the [installation docs here]().
+Please refer to the [installation docs here](https://github.com/anandsonu19/LinkerProject/blob/master/installation.md).
 
 ## How to start contributing to this project?
 
@@ -21,10 +21,10 @@ The Linker project is built by the community for the community. We welcome contr
 
 You can help with Linker's development in many ways, including art, coding, design and documentation.
 
-Developers: please [see this wiki page](https://github.com/anshgoyalevil/Linker/blob/master/installation.md) for instructions on how to set things up and commit changes.
-All other contributors: please see our [general contributor guidelines](https://github.com/anshgoyalevil/Linker/blob/master/contribution.md).
+Developers: please [see this wiki page](https://github.com/anandsonu19/LinkerProject/blob/master/installation.md) for instructions on how to set things up and commit changes.
+All other contributors: please see our [general contributor guidelines](https://github.com/anandsonu19/LinkerProject/blob/master/contribution.md).
 
-## Check out some [screenshots of the application here](https://github.com/anshgoyalevil/Linker/blob/master/preview.md)
+## Check out some [screenshots of the application here](https://github.com/anandsonu19/LinkerProject/blob/master/preview.md)
 
 ## Frontend Technologies Used:-
 - HTML
